@@ -1,0 +1,187 @@
+<% layout("Layouts/Boilerplate") %>
+
+<!-- Page Background -->
+<div style="background-color: #000; min-height: 100vh">
+  <div class="container py-5">
+    <div class="row justify-content-center align-items-start">
+      <!-- Left Side: Edit Post Form -->
+      <div class="col-lg-4 col-md-4 g-4 px-4">
+        <div
+          class="card bg-black text-white border-0 shadow-lg rounded-4 p-5"
+          style="background: linear-gradient(135deg, #0f0f0f, #1a1a1a)"
+        >
+          <h2 class="text-center mb-4 fw-bold" style="letter-spacing: 1px">
+            Edit Your Post
+          </h2>
+
+          <form method="POST" action="/<%= post._id %>?_method=PUT">
+
+            <!-- Image -->
+            <div class="mb-4">
+              <label for="image" class="form-label fw-semibold"
+                >Image URL</label
+              >
+              <input
+                type="text"
+                class="form-control bg-dark text-white border border-secondary rounded-3 px-3 py-2"
+                id="image"
+                name="posts[image]"
+                value="<%= post.image %>"
+                placeholder="Paste image URL"
+                required
+              />
+            </div>
+
+            <!-- Caption -->
+            <div class="mb-4">
+              <label for="caption" class="form-label fw-semibold"
+                >Caption</label
+              >
+              <textarea
+                class="form-control bg-dark text-white border border-secondary rounded-3 px-3 py-2"
+                id="caption"
+                name="posts[caption]"
+                rows="4"
+                placeholder="Write something cool..."
+                required
+              >
+<%= post.caption %></textarea
+              >
+            </div>
+
+            <!-- Location -->
+            <div class="mb-4">
+              <label for="location" class="form-label fw-semibold"
+                >Location</label
+              >
+              <input
+                type="text"
+                class="form-control bg-dark text-white border border-secondary rounded-3 px-3 py-2"
+                id="location"
+                name="posts[location]"
+                value="<%= post.location %>"
+                placeholder="Where is this?"
+                required
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button
+                type="submit"
+                class="btn btn-outline-light fw-semibold rounded-pill py-2"
+                style="transition: all 0.3s ease-in-out"
+                onmouseover="this.style.backgroundColor='#fff'; this.style.color='#000';"
+                onmouseout="this.style.backgroundColor=''; this.style.color='';"
+              >
+                Update Post
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Side: Post Preview -->
+      <div class="col-lg-5 col-md-6 px-4">
+        <div
+          class="card text-white mb-4 border-0 shadow-sm rounded-3 overflow-hidden"
+          style="background-color: #000"
+        >
+          <!-- Post Header -->
+          <div class="d-flex align-items-center gap-3 px-0 mt-2 pb-2">
+            <!-- Profile Picture -->
+            <div
+              class="d-flex align-items-center justify-content-center rounded-circle overflow-hidden bg-secondary"
+              style="width: 40px; height: 40px"
+            >
+              <img
+                src="<%= post.image %>"
+                alt="Profile picture"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+
+            <!-- User Info -->
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center gap-2">
+                <span class="fw-semibold">User</span>
+                <span class="text-light" style="font-size: 0.7rem">&bull;</span>
+                <small
+                  class="text-light"
+                  style="font-size: 0.7rem; font-weight: 100"
+                >
+                  <%= moment(post.createdAt).fromNow() %>
+                </small>
+              </div>
+              <small class="text-light" style="font-size: 0.75rem">
+                <%= post.location %>
+              </small>
+            </div>
+
+            <!-- Dropdown aligned right -->
+            <div class="ms-auto">
+              <div class="dropdown">
+                <button
+                  class="btn btn-transparent p-0"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-ellipsis-vertical text-white fs-5"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="/<%= post._id %>/editPost">
+                      Edit Post
+                    </a>
+                  </li>
+                  <li>
+                    <form
+                      method="POST"
+                      action="/<%= post._id %>?_method=DELETE"
+                    >
+                      <button type="submit" class="dropdown-item">
+                        Delete Post
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Post Image -->
+          <img
+            src="<%= post.image %>"
+            alt="Post image"
+            class="card-img-top border-top border-bottom"
+            style="object-fit: cover; height: 450px"
+          />
+
+          <!-- Post Actions -->
+          <div
+            class="d-flex justify-content-between align-items-center px-0 pt-3"
+            style="background-color: #000"
+          >
+            <!-- Left Icons -->
+            <div class="d-flex align-items-center gap-3">
+              <i class="fa-regular fa-heart fs-4 cursor-pointer"></i>
+              <i class="fa-regular fa-comment fs-4 cursor-pointer"></i>
+            </div>
+            <!-- Save Icon on right -->
+            <i class="fa-regular fa-bookmark fs-5 cursor-pointer"></i>
+          </div>
+
+          <!-- Caption -->
+          <div class="px-0 py-1 pb-1">
+            <p class="card-text mb-0">
+              <span class="fw-semibold me-2">User</span>
+              <%= post.caption %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

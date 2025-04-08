@@ -1,0 +1,218 @@
+<% layout("Layouts/Boilerplate") %>
+
+<div style="width: 100%; background-color: #000000; min-height: 100vh">
+  <div class="container py-4" style="max-width: 500px">
+    <% for (let post of allPosts) { %>
+    <div
+      class="card text-white mb-4 border-0 shadow-sm rounded-3 overflow-hidden"
+      style="background-color: #000"
+    >
+      <!-- Post Header -->
+      <div class="d-flex align-items-center gap-3 px-0 mt-2 pb-2">
+        <!-- Profile Picture -->
+        <div
+          class="d-flex align-items-center justify-content-center rounded-circle overflow-hidden bg-secondary"
+          style="width: 40px; height: 40px"
+        >
+          <img
+            src="<%= post.image %>"
+            alt="Profile picture"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+        </div>
+
+        <!-- User Info -->
+        <div class="d-flex flex-column">
+          <div class="d-flex align-items-center gap-2">
+            <span class="fw-semibold">User</span>
+            <span class="text-light" style="font-size: 0.7rem">&bull;</span>
+            <small
+              class="text-light"
+              style="font-size: 0.7rem; font-weight: 100"
+            >
+              <%= moment(post.createdAt).fromNow() %>
+            </small>
+          </div>
+          <small class="text-light" style="font-size: 0.75rem">
+            <%= post.location %>
+          </small>
+        </div>
+
+        <!-- Dropdown aligned right -->
+        <div class="ms-auto">
+          <div class="dropdown">
+            <button
+              class="btn btn-transparent p-0"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-ellipsis-vertical text-white fs-5"></i>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="/<%= post._id %>/editPost"
+                  >Edit Post</a
+                >
+              </li>
+              <li>
+                <form method="POST" action="/<%= post._id %>?_method=DELETE">
+                  <button type="submit" class="dropdown-item">
+                    Delete Post
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Image -->
+      <img
+        src="<%= post.image %>"
+        alt="Post image"
+        class="card-img-top border"
+        style="object-fit: cover; height: 65vh"
+      />
+
+      <!-- Post Actions -->
+      <!-- Post Actions -->
+      <div
+        class="d-flex justify-content-between align-items-center px-0 pt-3"
+        style="background-color: #000"
+      >
+        <div class="d-flex align-items-center gap-3 text-light">
+          <!-- Like Icon -->
+          <i
+            class="fa-regular fa-heart fs-4 like-icon"
+            style="cursor: pointer"
+            data-liked="false"
+          ></i>
+
+          <!-- Comment Icon with Count -->
+          <div class="d-flex align-items-center gap-1">
+            <i
+              class="fa-solid fa-comment fs-4 cursor-pointer"
+              data-bs-toggle="modal"
+              data-bs-target="#commentModal-<%= post._id %>"
+            ></i>
+            <small class="text-white-50"
+              ><%= post.comments?.length || 0 %></small
+            >
+          </div>
+        </div>
+
+        <!-- Save Icon on right -->
+        <i class="fa-regular fa-bookmark fs-5 cursor-pointer"></i>
+      </div>
+
+      <!-- Caption -->
+      <div class="px-0 py-1 pb-1">
+        <!-- Caption -->
+        <p class="card-text mb-1 line-clamp-2">
+          <span class="fw-semibold me-2">User</span>
+          <%= post.caption %>
+        </p>
+
+        <% if (post.comments && post.comments.length > 0) { const latestComment
+        = post.comments[post.comments.length - 1]; %>
+        <p class="card-text mb-0 text-white-50">
+          <span class="fw-semibold"><%= latestComment.username %></span>
+          <%= latestComment.text %>
+        </p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- PopOver Modal -->
+
+    <div
+      class="modal fade"
+      id="commentModal-<%= post._id %>"
+      tabindex="-1"
+      aria-labelledby="commentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 80vw">
+        <div
+          class="modal-content bg-dark text-white border-0 rounded-3 overflow-hidden"
+          style="height: 80vh"
+        >
+          <div class="modal-body d-flex p-0" style="height: 100%">
+            <!-- Left Side: Post Image -->
+            <div class="w-60 border-end">
+              <img
+                src="<%= post.image %>"
+                alt="Post image"
+                class="img-fluid h-100"
+                style="object-fit: cover"
+              />
+            </div>
+
+            <div class="w-50 d-flex flex-column justify-content-between">
+              <div class="p-3" style="max-height: 70vh; overflow-y: auto">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <div
+                    class="rounded-circle overflow-hidden bg-secondary"
+                    style="width: 35px; height: 35px"
+                  >
+                    <img
+                      src="<%= post.image %>"
+                      alt="User"
+                      style="width: 100%; height: 100%; object-fit: cover"
+                    />
+                  </div>
+                  <span class="fw-semibold">User</span>
+                  <span class="text-light" style="font-size: 0.7rem"
+                    >&bull;</span
+                  >
+                  <small
+                    class="text-light"
+                    style="font-size: 0.7rem; font-weight: 100"
+                  >
+                    <%= moment(post.createdAt).fromNow() %>
+                  </small>
+                </div>
+
+                <p class="mb-1"><%= post.caption %></p>
+                <hr class="my-4" style="border-color: #ffffff; opacity: 0.3" />
+
+                <!-- Comments List (Example) -->
+                <div class="mt-3">
+                  <ul class="list-unstyled">
+                    <% for (let comment of post.comments) { %>
+                    <li class="mb-2">
+                      <span class="fw-semibold">User</span>: <%= comment.comment
+                      %>
+                    </li>
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Add Comment Box -->
+              <form
+                class="d-flex border-top"
+                method="POST"
+                action="/<%= post._id %>/comments"
+              >
+                <input
+                  type="text"
+                  name="comments[comment]"
+                  class="form-control bg-dark text-white border-0 rounded-0"
+                  placeholder="Add a comment..."
+                  required
+                />
+                <button class="btn btn-link text-light px-3">Post</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4" style="border-color: #ffffff; opacity: 0.3" />
+    <% } %>
+  </div>
+</div>

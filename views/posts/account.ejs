@@ -1,0 +1,60 @@
+<% layout("Layouts/Boilerplate") %>
+
+<div class="container py-5 text-white">
+  <!-- Profile Header -->
+  <div class="d-flex align-items-center gap-5 mb-4">
+    <!-- Profile Image -->
+    <div
+      class="rounded-circle overflow-hidden bg-secondary"
+      style="width: 120px; height: 120px"
+    >
+      <img
+        src="<%= user.profileImage %>"
+        alt="Profile"
+        style="width: 100%; height: 100%; object-fit: cover"
+      />
+    </div>
+
+    <!-- User Info -->
+    <div>
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <h4 class="mb-0"><%= user.username %></h4>
+        <% if (isCurrentUser) { %>
+        <a href="/editProfile" class="btn btn-outline-light btn-sm"
+          >Edit Profile</a
+        >
+        <% } %>
+      </div>
+
+      <!-- Stats -->
+      <div class="d-flex gap-4">
+        <span><strong><%= user.posts.length %></strong> posts</span>
+        <span><strong><%= user.followers.length %></strong> followers</span>
+        <span><strong><%= user.following.length %></strong> following</span>
+      </div>
+
+      <!-- Bio -->
+      <div class="mt-2">
+        <p class="mb-0 fw-semibold"><%= user.fullName %></p>
+        <p class="mb-0 text-light"><%= user.bio %></p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="border-light" />
+
+  <!-- Post Grid -->
+  <div class="row g-2">
+    <% for (let post of user.posts) { %>
+    <div class="col-4">
+      <a href="/posts/<%= post._id %>">
+        <img
+          src="<%= post.image %>"
+          class="img-fluid rounded"
+          style="height: 250px; object-fit: cover"
+        />
+      </a>
+    </div>
+    <% } %>
+  </div>
+</div>

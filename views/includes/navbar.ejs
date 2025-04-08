@@ -1,0 +1,88 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow-sm py-2"
+  style="border-bottom: 0.2rex solid #7b7b7b"
+>
+  <div
+    class="container-fluid px-4 d-flex align-items-center justify-content-between"
+  >
+    <div class="d-flex align-items-center gap-3">
+      <!-- Logo -->
+      <a
+        class="font navbar-brand fs-4 fw-bold d-flex align-items-center gap-2"
+        href="/"
+      >
+        <i class="fa-brands fa-nestcam text-light fs-3"></i>
+        Obsidian
+      </a>
+    </div>
+
+    <!-- Right: Icons -->
+    <ul
+      class="navbar-nav d-flex flex-row align-items-center gap-3 bg-dark rounded-5 px-3 py-2"
+    >
+      <!-- Search Bar -->
+      <form class="d-none d-md-block" method="GET" action="/search">
+        <input
+          class="form-control form-control-sm bg-dark text-white border-0 rounded-pill px-3 py-1"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="q"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Search posts, users, tags..."
+          style="width: 220px; border: 1px solid #333"
+        />
+      </form>
+
+      <!-- Home Icon -->
+      <li class="nav-item">
+        <a
+          class="nav-link px-1 py-0"
+          href="/"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Home"
+        >
+          <i class="fa-solid fa-house fs-6 text-white"></i>
+        </a>
+      </li>
+
+      <!-- New Post Icon -->
+      <li class="nav-item">
+        <a
+          class="nav-link px-1 py-0"
+          href="/new"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="New Post"
+        >
+          <i class="fa-solid fa-square-plus fs-6 text-white"></i>
+        </a>
+      </li>
+
+      <!-- Profile Icon -->
+      <li class="nav-item">
+        <a
+          class="nav-link px-1 py-0"
+          href="/account"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          data-bs-title="Tooltip on bottom"
+          title="Profile"
+        >
+          <i class="fa-solid fa-user fs-6 text-white"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  tooltipTriggerList.forEach((tooltipTriggerEl) => {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>

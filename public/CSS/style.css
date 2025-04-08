@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #252525;
+}
+
+html {
+  background-color: #252525;
+}
+
+.font {
+  font-family: "Bad Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 60px;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::placeholder {
+  color: #ccc !important;
+  opacity: 1;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fa-heart:hover,
+.fa-comment:hover,
+.fa-bookmark:hover {
+  opacity: 0.7;
+}
+
+.navbar .nav-link:hover {
+  color: #f0f0f0;
+  opacity: 1;
+}
+
+.navbar-brand i {
+  color: #fff;
+  opacity: 1;
+}
+
+input[type="search"]::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+.tooltip-inner {
+  background-color: #f8f9fa !important;
+  color: #000 !important;
+  font-size: 0.75rem;
+  padding: 6px 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+.tooltip-arrow::before {
+  border-top-color: #f8f9fa !important;
+  opacity: 1;
+}
+
