@@ -1,0 +1,94 @@
+<% layout("Layouts/Boilerplate") %>
+
+<div
+  class="d-flex justify-content-center align-items-center vh-100"
+  style="
+    background: url('https://4kwallpapers.com/images/wallpapers/yasuke-dark-3840x2160-21997.jpg')
+      no-repeat center center fixed;
+    background-size: cover;
+  "
+>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div
+      class="bg-black opacity-75 border-0 rounded-4 shadow-lg p-5"
+      style="max-width: 650px"
+    >
+      <!-- Sign Up Form -->
+      <form action="/signup" method="POST">
+        <div class="mb-3">
+          <input
+            type="text"
+            name="username"
+            class="form-control bg-dark text-white border-light rounded-3 p-3"
+            placeholder="Username"
+            required
+            style="font-size: 1.1rem; border: 2px solid #5c4033"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            name="fullName"
+            class="form-control bg-dark text-white border-light rounded-3 p-3"
+            placeholder="Full Name"
+            required
+            style="font-size: 1.1rem; border: 2px solid #5c4033"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="email"
+            name="email"
+            class="form-control bg-dark text-white border-light rounded-3 p-3"
+            placeholder="Email"
+            required
+            style="font-size: 1.1rem; border: 2px solid #5c4033"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="password"
+            name="password"
+            class="form-control bg-dark text-white border-light rounded-3 p-3"
+            placeholder="Password"
+            required
+            style="font-size: 1.1rem; border: 2px solid #5c4033"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-danger w-100 fw-semibold rounded-3 py-3 mt-3"
+          style="
+            font-size: 1.3rem;
+            background-color: #9e1b32;
+            border: 2px solid #5c4033;
+            transition: 0.3s;
+          "
+        >
+          Sign up
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="my-3 d-flex align-items-center">
+        <hr class="flex-grow-1 border-light" />
+        <span class="mx-2 text-muted">OR</span>
+        <hr class="flex-grow-1 border-light" />
+      </div>
+
+      <!-- Login Link -->
+      <div class="text-center">
+        <p class="mb-0 text-light">
+          Have an account?
+          <a href="/login" class="text-info text-decoration-none fw-semibold"
+            >Log in</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

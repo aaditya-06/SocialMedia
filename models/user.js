@@ -1,31 +1,18 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  fullName: String,
-  bio: String,
-  profileImage: {
+  email: {
     type: String,
-    default: "https://via.placeholder.com/150",
+    required: true,
   },
-  posts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Post",
-    },
-  ],
-  followers: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
-  following: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
+  fullName: {
+    type: String,
+    required: true,
+  },
 });
+
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", userSchema);

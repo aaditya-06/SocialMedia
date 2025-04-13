@@ -1,0 +1,84 @@
+<% layout("Layouts/Boilerplate") %>
+
+<!-- Background with Dark, Gritty Warrior Theme -->
+<div
+  class="d-flex justify-content-center align-items-center vh-100"
+  style="
+    background: url('https://4kwallpapers.com/images/wallpapers/yasuke-dark-3840x2160-21997.jpg')
+      no-repeat center center fixed;
+    background-size: cover;
+  "
+>
+  <!-- Form Container with Dark, Gritty Style -->
+  <div
+    class="bg-black opacity-75 border-0 rounded-4 shadow-lg p-5"
+    style="width: 650px"
+  >
+    <!-- Warrior-Themed Logo -->
+    <div class="text-center mb-5">
+      <p
+        class="text-muted fs-2"
+        style="font-family: 'Roboto', sans-serif; letter-spacing: 1px"
+      >
+        The Warrior's Journey Begins
+      </p>
+    </div>
+
+    <!-- Login Form -->
+    <form action="/login" method="POST">
+      <!-- Username Field -->
+      <div class="mb-3">
+        <input
+          type="text"
+          name="username"
+          class="form-control bg-dark text-white border-light rounded-3 p-3"
+          placeholder="Username"
+          required
+          style="font-size: 1.1rem; border: 2px solid #5c4033"
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <input
+          type="password"
+          name="password"
+          class="form-control bg-dark text-white border-light rounded-3 p-3"
+          placeholder="Password"
+          required
+          style="font-size: 1.1rem; border: 2px solid #5c4033"
+        />
+      </div>
+
+      <!-- Submit Button with Warrior Vibe -->
+      <button
+        type="submit"
+        class="btn btn-danger w-100 fw-semibold rounded-3 py-3 mt-3"
+        style="
+          font-size: 1.3rem;
+          background-color: #9e1b32;
+          border: 2px solid #5c4033;
+          transition: 0.3s;
+        "
+      >
+        Log In
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="text-center text-muted my-3">OR</div>
+
+    <!-- Sign Up Link with Warrior Style -->
+    <div class="text-center">
+      <p class="mb-0" style="font-size: 1rem; color: #d1b19d">
+        Don't have an account?
+        <a
+          href="/signup"
+          class="text-info text-decoration-none"
+          style="font-weight: bold"
+          >Sign up</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

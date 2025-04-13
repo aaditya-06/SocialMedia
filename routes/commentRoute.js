@@ -5,6 +5,7 @@ const { commentSchema } = require("../schema");
 const ExpressError = require("../utils/expressError");
 const Post = require("../models/posts");
 const Comment = require("../models/comment");
+const { isLoggedIn } = require("../middleware");
 
 const validateComment = (req, res, next) => {
   const { error } = commentSchema.validate(req.body);
@@ -18,13 +19,27 @@ const validateComment = (req, res, next) => {
 //comment to post
 router.post(
   "/:id/comments",
+  isLoggedIn,
   validateComment,
   wrapAsync(async (req, res) => {
-    const post = await Post.findById(req.params.id);
+    const { id } = req.params;
+    const post = await Post.findById(id);
+
+    if (!post) {
+      req.flash("error", "Post not found.");
+      return res.redirect("/");
+    }
+
+
     const comment = new Comment(req.body.comments);
+    comment.author = req.user._id;
+
     post.comments.push(comment);
+
     await comment.save();
     await post.save();
+
+    req.flash("success", "Comment added!");
     res.redirect("/");
   })
 );

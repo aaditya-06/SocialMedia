@@ -1,72 +1,95 @@
 <% layout("Layouts/Boilerplate") %>
 
-<!-- Page Background -->
 <div style="background-color: #000; min-height: 100vh">
   <div class="container py-5">
-    <div class="row justify-content-center align-items-center">
-      <!-- Right Side: Login Form -->
-      <div class="col-lg-4 col-md-6 px-4">
-        <div class="card bg-dark text-white border-0 shadow rounded-3 p-4">
-          <h3 class="text-center mb-4 fw-semibold">New Post</h3>
-
-          <form method="POST" action="/" class="need-validation" novalidate>
-            <div class="mb-3">
-              <input
-                type="text"
-                class="form-control bg-dark text-white border-secondary"
-                id="text"
-                name="posts[image]"
-                placeholder="image"
-                required
+    <div class="row justify-content-center">
+      <div class="col-lg-12 col-md-10">
+        <div
+          class="card bg-dark text-white border-0 shadow-lg rounded-4 p-0 d-flex flex-lg-row"
+        >
+          <!-- Left: Image Preview -->
+          <div
+            class="col-lg-6 p-4 d-flex align-items-center justify-content-center border-end"
+          >
+            <div id="imagePreviewContainer" class="w-100 text-center">
+              <img
+                id="imagePreview"
+                class="img-fluid rounded-3"
+                style="height: 600px; object-fit: cover"
+                src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                alt="Image Preview"
               />
-              <div class="valid-feedback">Please enter valide formate</div>
             </div>
+          </div>
 
-            <div class="mb-4">
-              <textarea
-                type="text"
-                class="form-control bg-dark text-white border-secondary"
-                id="caption"
-                name="posts[caption]"
-                placeholder="caption"
-                required
-              ></textarea>
-              <div class="valid-feedback">Please enter valide formate</div>
-            </div>
+          <!-- Right: Upload Form -->
+          <div class="col-lg-6 p-4">
+            <h4 class="text-center mb-4 fw-semibold">Create New Post</h4>
 
-            <div class="mb-3">
-              <input
-                type="text"
-                class="form-control bg-dark text-white border-secondary"
-                id="text"
-                name="posts[location]"
-                placeholder="location"
-                required
-              />
-              <div class="valid-feedback">Please enter valide formate</div>
-            </div>
+            <form
+              method="POST"
+              action="/"
+              enctype="multipart/form-data"
+              novalidate
+            >
+              <!-- Image Upload -->
+              <div class="mb-3">
+                <label for="image" class="form-label text-white-50 small"
+                  >Choose a photo</label
+                >
+                <input
+                  type="file"
+                  name="posts[image]"
+                  class="form-control bg-dark text-white border-secondary"
+                  id="imagePost"
+                  accept="image/*"
+                  required
+                  multiple
+                />
+              </div>
 
-            <!-- Submit -->
-            <div class="d-grid">
-              <button type="submit" class="btn btn-light">Post</button>
-            </div>
-          </form>
+              <!-- Caption -->
+              <div class="mb-3">
+                <label for="caption" class="form-label text-white-50 small"
+                  >Caption</label
+                >
+                <textarea
+                  class="form-control bg-dark text-white border-secondary"
+                  id="caption"
+                  name="posts[caption]"
+                  placeholder="Write a caption..."
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Location -->
+              <div class="mb-4">
+                <label for="location" class="form-label text-white-50 small"
+                  >Location</label
+                >
+                <input
+                  type="text"
+                  class="form-control bg-dark text-white border-secondary"
+                  id="location"
+                  name="posts[location]"
+                  placeholder="Add a location..."
+                  required
+                />
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid">
+                <button
+                  type="submit"
+                  class="btn btn-light rounded-pill fw-semibold py-2"
+                >
+                  Post
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-
-      <!-- Left Side: Image -->
-      <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-        <img
-          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7863.jpg?t=st=1743867180~exp=1743870780~hmac=e199f52afe03c4fa1882f49c05a6818bbed5579cdf6fca086176633e90ed9b92&w=1200"
-          alt="Login visual"
-          class="img-fluid rounded-3"
-          style="
-            height: 550px;
-            width: 600px;
-            object-fit: cover;
-            object-position: center;
-          "
-        />
       </div>
     </div>
   </div>

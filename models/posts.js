@@ -1,26 +1,16 @@
 const mongoose = require("mongoose");
-const comments = require("./comment");
+const Comment = require("./comment");
 const { ref } = require("joi");
+const User = require("./user");
 
 const postSchema = new mongoose.Schema(
   {
-    image: {
-      type: String,
-      default:
-        "https://4kwallpapers.com/images/wallpapers/tamanna-bhatia-2024-3840x2160-15277.jpg",
-      set: (v) =>
-        !v.trim()
-          ? "https://4kwallpapers.com/images/wallpapers/tamanna-bhatia-2024-3840x2160-15277.jpg"
-          : v,
-    },
+    image: String,
     caption: {
       type: String,
       required: true,
     },
-    location: {
-      type: String,
-      default: "Somwhere under the sky",
-    },
+    location: String,
     date: {
       type: Date,
       default: Date.now,
@@ -31,6 +21,10 @@ const postSchema = new mongoose.Schema(
         ref: "Comment",
       },
     ],
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
