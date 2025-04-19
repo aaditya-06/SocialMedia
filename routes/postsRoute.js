@@ -6,12 +6,15 @@ const ExpressError = require("../utils/expressError");
 const Post = require("../models/posts");
 const moment = require("moment");
 const multer = require("multer");
-const path = require("path");
 
+const { storage } = require("../cloudinary/cloudinary");
 const { isLoggedIn, isOwner } = require("../middleware");
 
 const methodOverride = require("method-override");
 router.use(methodOverride("_method"));
+
+// Use Cloudinary storage for multer now
+const upload = multer({ storage });
 
 const validatePosts = (req, res, next) => {
   const { error } = postSchema.validate(req.body);
@@ -21,8 +24,6 @@ const validatePosts = (req, res, next) => {
   }
   next();
 };
-
-const upload = multer({ dest: "upload/" });
 
 // Show all posts
 router.get(
@@ -45,19 +46,24 @@ router.get("/new", isLoggedIn, (req, res) => {
   res.render("posts/new");
 });
 
-// Create post
+// Create post (with cloud image upload!)
 router.post(
   "/",
-  upload.single("posts[image]"),
-  validatePosts,
   isLoggedIn,
+  upload.single("posts[image]"), // cloudinary upload
+  validatePosts,
   wrapAsync(async (req, res) => {
-    console.log(req.file);
     const post = new Post(req.body.posts);
     post.owner = req.user._id;
+
+    // If image uploaded, store its URL and filename (from Cloudinary)
     if (req.file) {
-      post.image = req.file.path;
+      post.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+      };
     }
+
     await post.save();
     req.flash("success", "Post created successfully!");
     res.redirect("/");
@@ -101,6 +107,7 @@ router.delete(
   })
 );
 
+// Like / Unlike a post
 router.post(
   "/:id/like",
   isLoggedIn,

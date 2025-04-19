@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-const Comment = require("./comment");
-const { ref } = require("joi");
-const User = require("./user");
 
 const postSchema = new mongoose.Schema(
   {
-    image: String,
+    image: { url: String, filename: String },
     caption: {
       type: String,
       required: true,
