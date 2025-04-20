@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema(
   {
     image: { url: String, filename: String },
+    reel: {
+      url: String,
+      filename: String
+    },
     caption: {
       type: String,
       required: true,

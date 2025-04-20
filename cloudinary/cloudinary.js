@@ -10,9 +10,22 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: "Instagram",
-    allowed_formats: ["jpeg", "png", "jpg", "avif"],
+  params: async (req, file) => {
+    let resourceType = "image";
+    if (file.mimetype.startsWith("video/")) {
+      resourceType = "video";
+    }
+    console.log(
+      "Uploading file:",
+      file.originalname,
+      "with resource type:",
+      resourceType
+    ); // Log file type
+    return {
+      folder: "Posts",
+      resource_type: resourceType,
+      public_id: `${Date.now()}-${file.originalname}`,
+    };
   },
 });
 

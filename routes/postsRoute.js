@@ -47,26 +47,43 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 // Create post (with cloud image upload!)
+// Accept either image or reel
 router.post(
   "/",
   isLoggedIn,
-  upload.single("posts[image]"), // cloudinary upload
+  upload.single("posts[media]"),
   validatePosts,
   wrapAsync(async (req, res) => {
-    const post = new Post(req.body.posts);
-    post.owner = req.user._id;
+    try {
+      const post = new Post(req.body.posts);
+      post.owner = req.user._id;
 
-    // If image uploaded, store its URL and filename (from Cloudinary)
-    if (req.file) {
-      post.image = {
-        url: req.file.path,
-        filename: req.file.filename,
-      };
+      // Handle media upload
+      if (req.file) {
+        if (req.file.mimetype.startsWith("image/")) {
+          post.image = {
+            url: req.file.path,
+            filename: req.file.filename,
+          };
+        } else if (req.file.mimetype.startsWith("video/")) {
+          post.reel = {
+            url: req.file.path,
+            filename: req.file.filename,
+          };
+        }
+      }
+
+      await post.save();
+      req.flash("success", "Post created successfully!");
+      res.redirect("/");
+    } catch (error) {
+      console.error("Error uploading media: ", error);
+      req.flash(
+        "error",
+        "There was an issue uploading the media. Please try again."
+      );
+      res.redirect("/posts/new");
     }
-
-    await post.save();
-    req.flash("success", "Post created successfully!");
-    res.redirect("/");
   })
 );
 
